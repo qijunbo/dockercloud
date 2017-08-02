@@ -69,7 +69,7 @@ Dockerfile
 	docker container run --name lims -d -p 8080:8080 sunway/lims:1  
 	docker exec -it lims bash
 
-http://192.168.1.30:8080
+http://192.168.1.30:8080/iframework
 
 
 rebuild.sh
