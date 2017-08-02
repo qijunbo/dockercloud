@@ -100,6 +100,9 @@ restart.sh
 		-v /root/docker/mylims/iframework:/usr/local/iframework sunway/mylims 	
 	3. 到这个目录查看日志： 
 		/root/docker/mylims/logs
+	4. 查看运行在哪个端口：  
+		docker port mylims
+	
 
 Dockerfile for Development Environment
 ----
@@ -121,6 +124,6 @@ Dockerfile for Development Environment
 	-v /root/docker/mylims/iframework:/usr/local/iframework sunway/mylims 
 	
 	docker exec -it mylims bash
-	http://192.168.1.30:8080/iframework
+	http://192.168.1.30:32768/iframework
 
 	
