@@ -30,23 +30,36 @@ http://192.168.1.30:8080
 
 创建LIMS生产环境镜像
 ===
-Dockerfile for Pruduction Environment
+特别说明：
+---
+生成环境容器启动即可，里面已经包含LIMS:
+	 
+1. 启动lims：
+
+		docker container run --name lims -d -p 8080:8080 sunway/lims:1 		 
+2. 访问：
+<http://192.168.1.30:8080/iframework>
+
+Create Dockerfile for Pruduction Environment
 ----
 	#Create a LIMS image based on tomcat8
 	FROM tomcat:latest
 	COPY  iframework /usr/local/iframework
 	COPY  server.xml /usr/local/tomcat/conf/server.xml
 
-生成镜像
+Build Docker Image
 ---	
 	docker image rm sunway/lims:1	
 	docker image build -t sunway/lims:1  . 
 	
-启动LIMS
+Start Container for LIMS
 ----
 	docker container run --name lims -d -p 8080:8080 sunway/lims:1  
+Look inside the container.
+--
 	docker exec -it lims bash
-
+Done, Click here to access lims system.
+--
 http://192.168.1.30:8080/iframework
 
 
@@ -80,20 +93,20 @@ restart.sh
 		docker port mylims
 	
 
-Dockerfile for Development Environment
+Create Dockerfile for Development Environment
 ----
 	# Setup a tomcat 8 as a development environment.
 	FROM tomcat:latest
 	VOLUME  /usr/local/iframework  /usr/local/tomcat/logs 
 	COPY  server.xml /usr/local/tomcat/conf/server.xml
 
-生成镜像
+Build Customized Tomcat Docker Image 
 ---	
 	docker image rm sunway/mylims
 	docker image build -t sunway/mylims  . 
 	
 	
-启动LIMS
+Start customized Tomcat container.
 ----
 	docker container run --name mylims -d -P \
 	-v /root/docker/mylims/logs:/usr/local/tomcat/logs \
