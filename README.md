@@ -46,4 +46,44 @@ docker container run --name tomcat -d -p 8080:8080 tomcat
 
 docker exec -it tomcat bash
 
-http://servierip:8080
+http://192.168.1.30:8080
+
+
+创建LIMS镜像
+===
+Dockerfile
+----
+	#Create a LIMS image based on tomcat8
+	FROM tomcat:latest
+	COPY  iframework /usr/local/iframework
+	COPY  server.xml /usr/local/tomcat/conf/server.xml
+
+
+生成镜像
+---	
+	docker image rm sunway/lims:1	
+	docker image build -t sunway/lims:1  . 
+	
+启动LIMS
+----
+	docker container run --name lims -d -p 8080:8080 sunway/lims:1  
+	docker exec -it lims bash
+
+http://192.168.1.30:8080
+
+
+rebuild.sh
+--
+	docker container stop lims
+	docker container prune -f
+	docker image rm sunway/lims:1
+	docker image build -t sunway/lims:1  .
+
+restart.sh
+--
+	docker container stop lims
+	docker container rm lims
+	docker container prune -f
+	docker container run --name lims -d -p 8080:8080 sunway/lims:1
+
+
