@@ -168,7 +168,7 @@
 							  username="root"
 							  password="sunway123#"
 							  driverClassName="com.mysql.jdbc.Driver"
-							  url="jdbc:mysql://192.168.1.30:3306/LIMS"
+							  url="jdbc:mysql://192.168.1.30:3306/dbs_dev"
 							  maxActive="20"
 							  maxIdle="30"
 							  maxWait="10000"/>

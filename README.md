@@ -6,16 +6,31 @@ https://github.com/docker-library/mysql/blob/7a850980c4b0d5fb5553986d280ebfb4323
 
 https://github.com/mysql/mysql-docker
 	
-	mkdir -p  /var/lib/mysql
-	
-	docker run --name mysql -e MYSQL_ROOT_PASSWORD=sunway123# -d -p 3306:3306 -v /var/lib/mysql:/var/lib/mysql mysql
+	mkdir -p  /root/data/mysql
+
+	docker run --name mysql -e MYSQL_ROOT_PASSWORD=sunway123# -d -p 3306:3306 -v /root/data/mysql:/var/lib/mysql mysql
 	 
 	docker container exec -it mysql bash
-	
+
 	mysql -u root -p 
 	密码： sunway123#
-	
 Then you can start to use the db.
+	
+DB Initialization
+====
+
+Create DB
+--
+	mysqladmin -u root -p  --default-character-set=utf8  create LIMS
+	mysql -u root -p -D dbs_dev </var/lib/mysql/dbs_dev.sql
+	
+or
+```
+	mysql -u root -p 
+	CREATE DATABASE IF NOT EXISTS dbs_dev DEFAULT CHARSET utf8 COLLATE utf8_general_ci;
+	use dbs_dev;
+	source /var/lib/mysql/dbs_dev.sql
+
 
 Tomcat Docker 容器初始化
 ==
