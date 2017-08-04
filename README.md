@@ -25,7 +25,7 @@ Create DB
 	mysql -u root -p -D dbs_dev </var/lib/mysql/dbs_dev.sql
 	
 or
-```
+
 	mysql -u root -p 
 	CREATE DATABASE IF NOT EXISTS dbs_dev DEFAULT CHARSET utf8 COLLATE utf8_general_ci;
 	use dbs_dev;
@@ -41,6 +41,7 @@ docker container run --name tomcat -d -p 8080:8080 tomcat
 docker exec -it tomcat bash
 
 http://192.168.1.30:8080
+
 
 
 创建LIMS生产环境镜像
@@ -130,4 +131,22 @@ Start customized Tomcat container.
 	docker exec -it mylims bash
 	http://192.168.1.30:<port>/iframework
 
-	
+
+rebuild.sh
+--
+	docker container stop mylims
+	docker container prune -f
+	docker image rm sunway/mylims
+	docker image build -t sunway/mylims  .
+
+
+restart.sh
+-- 
+	docker container stop mylims
+	docker container rm mylims
+	docker container prune -f
+	docker container run --name mylims -d -P \
+			-v /root/docker/mylims/logs:/usr/local/tomcat/logs \
+			-v /root/docker/mylims/iframework:/usr/local/iframework sunway/mylims
+	docker port mylims
+
