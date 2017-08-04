@@ -15,6 +15,27 @@ https://github.com/mysql/mysql-docker
 	mysql -u root -p 
 	密码： sunway123#
 Then you can start to use the db.
+
+[Optional] Container customization
+====
+
+	mkdir -p  /root/mysql/user1/data
+	mkdir -p  /root/mysql/user1/conf
+	
+#copy the ```docker.cnf```  and  ```mysql.cnf```  from  source forder conf to  ```/root/mysql/user1/conf```
+
+	docker run --name mysql -e MYSQL_ROOT_PASSWORD=sunway123# -d -p 3306:3306 \
+	    -v /root/mysql/user1/data:/var/lib/mysql  \
+	    -v /root/mysql/user1/conf:/etc/mysql/conf.d    mysql
+	 
+	docker container exec -it mysql bash
+
+	mysql -u root -p 
+	密码： sunway123#
+
+chek environment variables
+---
+	mysqladmin -u root -p variables  | grep  "case"
 	
 DB Initialization
 ====
