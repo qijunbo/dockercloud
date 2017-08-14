@@ -19,19 +19,28 @@ Then you can start to use the db.
 [Optional] Container customization
 ====
 
-	mkdir -p  /root/mysql/user1/data
-	mkdir -p  /root/mysql/user1/conf
-	
-#copy the ```docker.cnf```  and  ```mysql.cnf```  from  source forder conf to  ```/root/mysql/user1/conf```
+create folders tobe binded with container
+---
+```
+mkdir -p  /root/mysql/user1/data
+mkdir -p  /root/mysql/user1/initsql
+mkdir -p  /root/mysql/user1/conf
+```	
+Running custom init scripts at database creation
+---
+copy your  **create_db.sql** into folder  **/docker-entrypoint-initdb.d**,  the sql script will be executed on container start.
 
-	docker run --name mysql -e MYSQL_ROOT_PASSWORD=sunway123# -d -p 3306:3306 \
-	    -v /root/mysql/user1/data:/var/lib/mysql  \
-	    -v /root/mysql/user1/conf:/etc/mysql/conf.d    mysql
-	 
-	docker container exec -it mysql bash
+```
+docker run --name mysql -e MYSQL_ROOT_PASSWORD=sunway123# -d -p 3306:3306 \
+	-v /root/mysql/user1/data:/var/lib/mysql  \
+	-v /root/mysql/user1/initsql:/docker-entrypoint-initdb.d \
+	-v /root/mysql/user1/conf:/etc/mysql/conf.d    mysql
+ 
+docker container exec -it mysql bash
 
-	mysql -u root -p 
-	密码： sunway123#
+mysql -u root -p 
+密码： sunway123#
+````
 
 chek environment variables
 ---
@@ -42,16 +51,17 @@ DB Initialization
 
 Create DB
 --
-	mysqladmin -u root -p  --default-character-set=utf8  create LIMS
-	mysql -u root -p -D dbs_dev </var/lib/mysql/dbs_dev.sql
+	mysqladmin -u root -p  --default-character-set=utf8  create dbs_dev
+	mysql -u root -p --default-character-set=utf8 -D dbs_dev </var/lib/mysql/dbs_dev.sql
 	
 or
 
-	mysql -u root -p 
-	CREATE DATABASE IF NOT EXISTS dbs_dev DEFAULT CHARSET utf8 COLLATE utf8_general_ci;
-	use dbs_dev;
-	source /var/lib/mysql/dbs_dev.sql
-
+```
+mysql -u root -p --default-character-set=utf8
+CREATE DATABASE IF NOT EXISTS dbs_dev DEFAULT CHARSET utf8 COLLATE utf8_general_ci;
+use dbs_dev;
+source /var/lib/mysql/dbs_dev.sql
+```
 
 Tomcat Docker 容器初始化
 ==
