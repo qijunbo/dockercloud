@@ -1,5 +1,7 @@
+                                               LIMS 产品的容器化 
 
-
+<span id="beginning" /> 
+===
 特别说明：
 随本文档一起发布的还包含一个压缩包lims.zip  , 其中包含了部署LIMS所需的配置文件。
 
@@ -34,8 +36,8 @@ https://docs.docker.com/engine/installation/linux/docker-ce/centos/#install-usin
 yum install -y yum-utils device-mapper-persistent-data lvm2
 yum-config-manager   --add-repo   https://download.docker.com/linux/centos/docker-ce.repo
 
-sudo yum install docker-ce
-systemctl start docke
+yum install -y docker-ce
+systemctl start docker
 
 ```
 安装之后可以用下面的指令简单验证一下是否安装成功。
@@ -205,3 +207,5 @@ http://192.168.1.30:8080/iframework
 http://192.168.1.30:8080/iframework
 
 文档结束
+
+[Home](#beginning)
