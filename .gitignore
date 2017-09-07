@@ -99,3 +99,4 @@ mylims/dbs_dev-copy.sql
 mylims/error.txt
 lims.zip
 *.pdf
+*.sql

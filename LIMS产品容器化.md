@@ -1,4 +1,18 @@
-                                               LIMS 产品的容器化 
+                                              
+<center> LIMS 产品的容器化方案 </center>
+===
+
+<div align="right"> 
+
+<table width="100%">
+<tr><th colspan="3" align="center"> 版本控制信息 </th> </tr> 
+<tr><th>版本号</th><td>1.0</td></tr>
+<tr><th>作&nbsp;&nbsp;者</th><td>齐俊波</td></tr>
+<tr><th>审核人</th> <td>李明</td></tr>
+<tr><th>最后更新时间</th> <td>2017/9/7</td></tr>
+</table>
+
+</div>
 
 <span id="beginning" /> 
 ===
@@ -11,12 +25,37 @@
  * [产品镜像的生成 ](#产品镜像的生成 )
  * [产品自动发布 ](#产品自动发布 )
  * [客户自助采购系统 ](#客户自助采购系统 )
- * [运维管理系统 ](#运维管理系统 )
+ * [运维配置系统 ](#运维配置系统 )
 - [安全](#安全)
+ * [Docer用户创建](#Docer用户创建)
+ * [加密方式](#加密方式)
+- [数据备份](#数据备份)
+ * [异地备份](#异地备份)
+ * [网盘备份](#网盘备份)
+- [风险](#风险)
 
- 
 
- 
+** 操作手册 **
+
+- [Docker环境搭建](#Docker环境搭建)
+ * [安装Docker](#安装Docker)
+ * [创建用户](#创建用户)
+
+- [LIMS产品容器化手册](#LIMS产品容器化手册)
+ * [文件清单](#文件清单lims)
+ * [操作提示](#操作提示lims)
+
+- [MySQL容器初始化](#MySQL容器初始化)
+ * [文件清单mysql](#文件清单mysql)
+ * [操作提示mysql](#操作提示mysql)
+
+- [自动化部署Shell脚本](#自动化部署Shell脚本)
+ * [文件清单](#文件清单auto)
+ * [操作提示](#操作提示auto)
+
+- [发布LIMS](#发布LIMS)
+ * [上传LIMS镜像](#上传LIMS镜像)
+ * [下载LIMS镜像](#下载LIMS镜像)
 
 LIMS 产品的容器化
 ====
@@ -44,9 +83,14 @@ LIMS 产品的容器化
 <span id="范围说明" /> 
 ## 范围说明 ##
 下图是本系统的逻辑架构图, 蓝色虚线框部分表示本系统的边界.
+
+![逻辑架构图](logic.png)
+
+** 如下是架构图说明 ** 
+
 - 客户自助采购界面/运维管理界面
 
-用户通过浏览器访问应用服务器(客户自助采购系统, 运维管理系统), 来完成相应的功能.
+用户通过浏览器访问应用服务器(客户自助采购系统, 运维配置系统), 来完成相应的功能.
 
 - CI/CD (持续集成/持续发布) 系统
 
@@ -61,7 +105,7 @@ LIMS 产品的容器化
 
 当客户的数量越来越多, 容器的数量也会越来越多, 我们必然需要一个小的数据库系统来记录客户和容器的对应关系.  每个客户的数据库都有自己的端口,  因此LIMS系统的数据源需要正确配置才能运行. 配置系统可以生成配置文件, 也可以在系统出现错误时提供一种快速恢复机制.
 
-"运维管理系统" 屏蔽了Docker操作的复杂性, 以及Shell直接操作带来的误操作风险, 只提供了基本的操作.
+"运维配置系统" 屏蔽了Docker操作的复杂性, 以及Shell直接操作带来的误操作风险, 只提供了基本的操作.
 
 - Docker操作Shell脚本
 
@@ -77,7 +121,7 @@ Shell脚本是应用服务器和Docker容器的纽带, 提供了产品创建和�
 
 
 
-![逻辑架构图](logic.gif)
+
 
 <span id="实施方案" /> 
 ## 实施方案 ##
@@ -91,14 +135,36 @@ Shell脚本是应用服务器和Docker容器的纽带, 提供了产品创建和�
 <span id="产品镜像的生成" />
 ### 产品镜像的生成  ###
 
+每个客户对应2个镜像,  一个是LIMS产品镜像, 一个是数据库镜像. 
+
+* LIMS 镜像的生成  
+
+- 执行rebuild.sh  创建镜像.
+
+- 执行restart.sh  启动Lims 演示环境.
+
+* 数据库镜像的生成
+
 <span id="产品自动发布" />
 ### 产品自动发布  ###
+
+前端系统发起调用,并传入用户id时,  后台shell脚本会自动完成如下工作.
+
+![自动部署流程](./auto.png)
 
 <span id="客户自助采购系统" />
 ### 客户自助采购系统  ###
 
-<span id="运维管理系统" />
-### 运维管理系统  ###
+这部分李季正在着手设计.   本文暂不提供具体方案.
+Demo环境展示提供一个简单的单页面系统, 作为展示. 
+
+![采购](./buy.png)
+
+![明细](./detail.png)
+
+
+<span id="运维配置系统" />
+### 运维配置系统  ###
 
 运维系统存在的价值如下:
 
@@ -115,29 +181,74 @@ Shell脚本是应用服务器和Docker容器的纽带, 提供了产品创建和�
 <span id="安全" /> 
 ## 安全 ##
 
- 在生产环境中, 将避免使用root用户,  发布系统将创建 docker 用户, 并添加在sudo用户组里.
+<span id="Docer用户创建" />  
+- Docer用户创建 
+
+在生产环境中, 将避免使用root用户,  发布系统将创建 docker 用户, 并添加在sudo用户组里.
+
+```
+useradd docker -g docker 	
+```
+
+
+<span id="加密方式" /> 
+
+- 加密方式 
 
  用户自助采购系统将采用 "用户名+密码"认证方式, 密码用单向加密算法加密(暂定md5算法), 密码找回暂时定为采用邮件发生一次性有效的修改链接.
-
+ 
  用运维配置系统将采用 "用户名+密码"认证方式, 密码用单向加密算法加密(暂定md5算法), 密码找回暂时定为采用邮件发生一次性有效的修改链接.
 
 
-主要步骤
-=======
-完成LIMS产品的容器化，主要需要完成如下几个过程。
+<span id="数据备份" />
+## 数据备份 ##
+数据备份的目的主要在于当系统因为人为(误删除, 黑客入侵)或者不可抗(断电,灾害)因素出现损坏时, 能够以最快的数据恢复服务, 将损失控制在可接受的范围之内.  因此, 为达到上述目的,  我们最常见的两种方式是[异地备份](#异地备份)和[网盘备份](#网盘备份).
 
-1. 在宿主机器上安装Docker
+<span id="异地备份" />
+### 异地备份  ###
 
-2. 把数据库容器化
+ 1. 一种比较便捷的方式是在云提供商处采购机器时, 刻意选择不同的数据中心, 这样物理空间上,  虚拟机和备份机在不同的地点. 如果数据中心停电, 同时遭到损害的机会小.
 
-3. 把LIMS应用容器化
+ 2. 自己购买备份服务器.  因为云主机比较贵, 如果考虑经济因素,  自己购买机器, 定期下载数据.  不过考虑到下载带宽的限制, 这种省钱的方式效果比较差.
 
-4. 发布LIMS
+<span id="网盘备份" />
+### 网盘备份  ###
+
+ **  注意 **  这里说的网盘不是百度网盘.  百度网盘属于SaaS服务.  我们要的是IaaS服务, 使用起来和物理磁盘区别不大, 例如NAS网盘.
+
+从云提供商(如阿里云) 购买磁盘空间,  并且用Linux Mount命令挂载在主机上,  这个用起来和本地文件夹一样, 但是物理空间上, 它在另一个机器上, 备份非常方便.   但是缺点是, NAS网盘一般都在同一个数据中心,  一旦数据中心停电, 肯定都停电了. 但是价格便宜.
 
 
+<span id="风险" />
+风险
+==
 
-在宿主机器上安装Docker
-=====
+### 已知风险: ###
+
+ - 配置文件的生成
+
+由于我们的机器将有多个数据库容器同时运行, 那么它们必然占用不同的端口.  这样LIMS产品的数据源也需要相应的配置.  我们使用容器的目的之一就是为了实现"可复制性",  所以我们从容器内部指向外部的一个配置文件.  那么LIMS产品的打包方式和数据源的配置方式是否允许配资文件外部化, 决定了我们发布流程的成败.
+   ![Lims产品发布](./2.png)
+ -  数据库初始化脚本的质量
+
+如下图所示,  数据库初始化sql 是 数据库镜像创建的前提条件.  由于我们系统sql偶尔变动, 会更新sql.  如果数据化自动创建的sql包含瑕疵, 执行出现错误,  那么镜像的启动就会失败.  所以严格把关sql质量非常重要. 
+
+![数据库初始化](./3.png)
+ 
+
+
+&nbsp;
+===
+
+<center> 操作手册 </center>
+=== 
+
+<span id="Docker环境搭建" /> 
+Docker环境搭建
+===
+
+<span id="安装Docker" /> 
+### 安装Docker ###
 
 下面是Docker在CentOS Linux 下面的安装步骤， 如果你用的是其它操作系统可以点击如下链接查看官方网站对其他操作系统安装步骤的说明：
 https://docs.docker.com/engine/installation/linux/docker-ce/centos/#install-using-the-repository 
@@ -156,156 +267,155 @@ systemctl start docker
 docker version
 ```
 
+<span id="创建用户" />
+### 创建用户 ###
 
-把数据库容器化
-====
-这进行这一步工作的时候，有一个非常终于的概念我们必须先弄清楚。  容器运行期间，所有发生在容器**内部**的改动，在容器关闭后都会丢失。 当你再次启动这个容器时，一切都回到了**出厂状态**。
-正因为如此，我们必须把```数据库文件```和```数据库配置文件```**外部化**.
+为了安全起见, docker 会使用单独的用户和组. 参考: [Docer用户创建](#Docer用户创建)
 
-下面两个链接是MySQL官方提供的对镜像文件的详细说明，以及镜像是如何生成的。 虽然你不一定非要了解细节， 但是当你遇到困难时，了解这些内容有助于解决问题。
+ 
+<span id="LIMS产品容器化手册" /> 
 
-https://github.com/docker-library/mysql/blob/7a850980c4b0d5fb5553986d280ebfb43230a6bb/8.0/Dockerfile
+LIMS产品容器化手册
+=====
 
-https://github.com/mysql/mysql-docker 
-
-MySQL 容器的初始化
+<span id="文件清单lims" /> 
+文件清单:
 ----
 
-创建用来保存数据库文件和数据库配置文件的目录
+<table width="100%">
+<tr><th>File Name</th><th>Description</th><th>备注</th> </tr>
+<tr><td>lims/Dockerfile</td><td>用于创建基于Tomcat的Webapp镜像.</td><td>&nbsp;</td></tr>
+<tr><td>lims/rebuild.sh</td><td>删除旧版本的lims镜像,生成新的.</td><td>危险操作</td></tr>
+<tr><td>lims/restart.sh</td><td>重启lims 演示环境.</td><td></td></tr>
+<tr><td>lims/server.xml</td><td>lims 默认配置文件, 其中的数据库jndi需要酌情修改.</td><td></td></tr>
+</table>
+
+<span id="操作提示lims" />  
+操作提示:
+----
+
+- 创建工作目录, 由于lims产品目前不是war包或者jar包的形式, 所以首先要以文件夹的形式把部署文件copy在当前工作目录下.
+
 ```
-mkdir -p  /root/mysql/user1/data
-mkdir -p  /root/mysql/user1/conf
+mkdir -p  /home/docker/lims
+
+## copy  <iframwork>  ./
+## copy  servers.xml  ./
+
 ```
 
-copy the ```docker.cnf```  and  ```mysql.cnf```  from  source forder conf to  ```/root/mysql/user1/conf```
-这些文件可以在说明文档一起发布的包里面找到。
+- 执行rebuild.sh  创建镜像.
+
+- 执行restart.sh  启动Lims 演示环境.
+
+
+
+<span id="MySQL容器初始化" />  
+MySQL容器初始化
+==
+
+<span id="文件清单mysql" />  
+文件清单:
+----
+
+<table width="100%">
+<tr><th>File Name</th><th>Description</th><th>备注</th> </tr>
+<tr><td>mysql/conf/</td><td> MySQL初始化配置 </td><td>&nbsp;</td></tr>
+<tr><td>mysql/initsql/dbsdevbk.sql</td><td> LIMS 的数据库初始化脚本.</td><td>&nbsp;</td></tr>
+</table>
+
+
+
+<span id="操作提示mysql" />  
+操作提示:
+----
+
+-  create folders tobe binded with container
+
+```
+mkdir -p  /home/docker/mysql/user1/data
+mkdir -p  /home/docker/mysql/user1/initsql
+mkdir -p  /home/docker/mysql/user1/conf
+```	
+- Running custom init scripts at database creation
+ 
+copy your  **create_db.sql** into folder  **/docker-entrypoint-initdb.d**,  the sql script will be executed on container start.
 
 ```
 docker run --name mysql -e MYSQL_ROOT_PASSWORD=sunway123# -d -p 3306:3306 \
-    -v /root/mysql/user1/data:/var/lib/mysql  \
-    -v /root/mysql/user1/conf:/etc/mysql/conf.d    mysql
-```
-
-**发生了什么？**
-完成上面两个步骤后，外面的两个目录和容器内部的目录就完全共享了。
-  /root/mysql/user1/data  => /var/lib/mysql
-  
-  /root/mysql/user1/conf  => /etc/mysql/conf.d 
-
-  
-如何从外部访问MySQL
----
-mysql 超级用户 root
-密码： sunway123#
-ip地址可以到宿主机器上查看。
-
-知道以上信息后，可以用任意第三方数据库客户端工具远程链接，并创建数据库。
-
-
-如何从内部访问MySQL
-----
-执行如下指令，即可进入mysql容器内部。
-```
+	-v /home/docker/mysql/user1/data:/var/lib/mysql  \
+	-v /home/docker/mysql/user1/initsql:/docker-entrypoint-initdb.d \
+	-v /home/docker/mysql/user1/conf:/etc/mysql/conf.d    mysql
+ 
 docker container exec -it mysql bash
-	mysql -u root -p 
-	密码： sunway123#
-```
 
-	
-LIMS 数据库初始化
----
-(内容仅供参考，一切以LIMS实际发布的产品为准)
-
-```
-docker container exec -it mysql bash
 mysql -u root -p 
-CREATE DATABASE IF NOT EXISTS dbs_dev DEFAULT CHARSET utf8 COLLATE utf8_general_ci;
-use dbs_dev;
-source /var/lib/mysql/dbs_dev.sql
+密码： sunway123#
+
 ```
 
-把LIMS应用容器化
+- chek environment variables
+
+```
+mysqladmin -u root -p variables  | grep  "case"
+```
+
+
+Reference
+---
+
+**Note:** 本文以MySql 8.0 为蓝本
+
+https://github.com/docker-library/mysql/blob/7a850980c4b0d5fb5553986d280ebfb43230a6bb/8.0/Dockerfile
+
+https://github.com/mysql/mysql-docker
+
+
+
+<span id="自动化部署Shell脚本" />  
+自动化部署Shell脚本
 ===
 
-创建Dockerfile. 
---------
-这个是生产环境专用。LIMS打包到容器内部， 减少发布时间和与运维人员的沟通成本。
 
-
-	#Create a LIMS image based on tomcat8
-	FROM tomcat:latest
-	COPY  iframework /usr/local/iframework
-	COPY  server.xml /usr/local/tomcat/conf/server.xml
-
-创建 Docker 镜像
----	
-在做这个工作之前，要把最新版的LIMS 发布文件(iframework)和tomcat配置文件server.xml 复制到Dockerfile同一个目录下。
-```
-docker image rm sunway/lims:1	
-docker image build -t sunway/lims:1  . 
-```	
-启动LIMS容器
+<span id="文件清单auto" />  
+文件清单:
 ----
-	docker container run --name lims -d -p 8080:8080 sunway/lims:1  
- 
-点击如下链接尝试是否可以成功访问系统
 
-http://192.168.1.30:8080/iframework
+<table width="100%">
+<tr><th>File Name</th><th>Description</th><th>备注</th> </tr>
+<tr><td>auto/createcontainer.sh</td><td>创建LIMS产品容器和数据库容器. 传入参数 userid </td><td> </td></tr>
+<tr><td>auto/getmysqlport.sh</td><td>获取指定用户数据库容器占用的端口. 传入参数 userid</td><td> </td></tr>
+<tr><td>auto/getport.sh</td><td>获取指定用户LIMS容器占用的端口. 传入参数 userid</td><td> </td></tr>
+<tr><td>auto/startmysql.sh</td><td>测试脚本,启动demo环境数据库</td><td> </td></tr>
+</table>
 
- 
-创建开发专用Tomcat容器
-===	
-特别说明:
---
-	开发版容器使用步骤如下:
-	1. 把LIMS复制到：/root/docker/mylims/iframework
-	2. 启动定制化的tomcat容器。
-		docker container run --name mylims -d -P \
-		-v /root/docker/mylims/logs:/usr/local/tomcat/logs \
-		-v /root/docker/mylims/iframework:/usr/local/iframework sunway/mylims 	
-	3. 到这个目录查看日志： 
-		/root/docker/mylims/logs
-	4. 查看运行在哪个端口：  
-		docker port mylims
-	
 
-创建Dockerfile
+<span id="操作提示auto" />  
+操作提示:
 ----
-	# Setup a tomcat 8 as a development environment.
-	FROM tomcat:latest
-	VOLUME  /usr/local/iframework  /usr/local/tomcat/logs 
-	COPY  server.xml /usr/local/tomcat/conf/server.xml
 
-定制化Tomcat镜像 
----	
-	docker image rm sunway/mylims
-	docker image build -t sunway/mylims  . 
-	
-	
-启动Tomcat容器
-----
-	docker container run --name mylims -d -P \
-	-v /root/docker/mylims/logs:/usr/local/tomcat/logs \
-	-v /root/docker/mylims/iframework:/usr/local/iframework sunway/mylims 
-	
-	docker exec -it mylims bash
-	http://192.168.1.30:<port>/iframework
+这些脚本都是给前端Webapp调用的, 原则上不提倡手动执行这些脚本. 避免前端系统的记录和后端的行为不一致.
 
- 
+
+<span id="发布LIMS" />  
 
 发布LIMS
 ===
 当LIMS产品Docker容器化后，可以很方便的把LIMS产品发布到云端，部署时可以直接从云端下载。
 由于Docker公司在美国，所以我们一般从国内的云平台购买Docker服务。
 
+<span id="上传LIMS镜像" />  
 上传LIMS镜像
 ---
 把我们前面创建好的LIMS镜像推送到云端。
 ```
 	docker push <registry-host>:5000/sunway/lims:1
 ```	
+
+<span id="下载LIMS镜像" />  
 下载LIMS镜像
 ----
+
 从云端下载镜像，运行
 ```
 	docker pull <myregistry.local>:5000/sunway/lims:1
@@ -314,7 +424,9 @@ http://192.168.1.30:8080/iframework
 ```
 这样客户就可以直接访问LIMS服务器了。
 
-http://192.168.1.30:8080/iframework
+
+
+
 
 文档结束
 
