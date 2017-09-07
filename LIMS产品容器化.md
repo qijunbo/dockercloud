@@ -1,5 +1,5 @@
                                               
-<center> LIMS 产品的容器化方案 </center>
+<center> LIMS 产品的容器化方案 </center>  
 ===
 
 <div align="right"> 
@@ -14,7 +14,7 @@
 
 </div>
 
-<span id="beginning" /> 
+<span id="beginning" />  
 ===
 
 目录:
@@ -57,7 +57,7 @@
  * [上传LIMS镜像](#上传LIMS镜像)
  * [下载LIMS镜像](#下载LIMS镜像)
 
-LIMS 产品的容器化
+LIMS 产品的容器化 
 ====
 <span id="需求说明" /> 
 ## 需求说明 ##
@@ -81,7 +81,7 @@ LIMS 产品的容器化
 
 
 <span id="范围说明" /> 
-## 范围说明 ##
+## 范围说明 ##       
 下图是本系统的逻辑架构图, 蓝色虚线框部分表示本系统的边界.
 
 ![逻辑架构图](logic.png)
@@ -124,7 +124,7 @@ Shell脚本是应用服务器和Docker容器的纽带, 提供了产品创建和�
 
 
 <span id="实施方案" /> 
-## 实施方案 ##
+## 实施方案 ##     
 
 下图表名了LIMS产品从代码到最总可线上购买所经理的流程.  
 
@@ -137,13 +137,18 @@ Shell脚本是应用服务器和Docker容器的纽带, 提供了产品创建和�
 
 每个客户对应2个镜像,  一个是LIMS产品镜像, 一个是数据库镜像. 
 
-* LIMS 镜像的生成  
+* LIMS 镜像的生成  具体过程参考: [LIMS产品容器化手册](#LIMS产品容器化手册)
 
 - 执行rebuild.sh  创建镜像.
 
 - 执行restart.sh  启动Lims 演示环境.
 
-* 数据库镜像的生成
+* 数据库镜像的生成. 具体过程参考: [MySQL容器初始化](#MySQL容器初始化)
+
+一个先进的持续集成/持续发布系统应该是下面这样的, 但是这对团队的专业化程度要求较高, 这是未来我们努力的方向.
+
+![持续集成](./realworld-pipeline-flow.png)
+
 
 <span id="产品自动发布" />
 ### 产品自动发布  ###
@@ -152,8 +157,8 @@ Shell脚本是应用服务器和Docker容器的纽带, 提供了产品创建和�
 
 ![自动部署流程](./auto.png)
 
-<span id="客户自助采购系统" />
-### 客户自助采购系统  ###
+<span id="客户自助采购系统" /> 
+### 客户自助采购系统  ###  
 
 这部分李季正在着手设计.   本文暂不提供具体方案.
 Demo环境展示提供一个简单的单页面系统, 作为展示. 
@@ -179,7 +184,7 @@ Demo环境展示提供一个简单的单页面系统, 作为展示.
 </table>
 
 <span id="安全" /> 
-## 安全 ##
+## 安全 ##     
 
 <span id="Docer用户创建" />  
 - Docer用户创建 
@@ -220,8 +225,8 @@ useradd docker -g docker
 
 
 <span id="风险" />
-风险
-==
+风险 
+===
 
 ### 已知风险: ###
 
@@ -237,14 +242,14 @@ useradd docker -g docker
  
 
 
-&nbsp;
+&nbsp; 
 ===
 
-<center> 操作手册 </center>
+<center> 操作手册 </center> 
 === 
 
 <span id="Docker环境搭建" /> 
-Docker环境搭建
+Docker环境搭建     
 ===
 
 <span id="安装Docker" /> 
@@ -275,8 +280,8 @@ docker version
  
 <span id="LIMS产品容器化手册" /> 
 
-LIMS产品容器化手册
-=====
+LIMS产品容器化手册     
+===
 
 <span id="文件清单lims" /> 
 文件清单:
@@ -311,8 +316,8 @@ mkdir -p  /home/docker/lims
 
 
 <span id="MySQL容器初始化" />  
-MySQL容器初始化
-==
+MySQL容器初始化     
+===
 
 <span id="文件清单mysql" />  
 文件清单:
@@ -373,7 +378,7 @@ https://github.com/mysql/mysql-docker
 
 
 <span id="自动化部署Shell脚本" />  
-自动化部署Shell脚本
+自动化部署Shell脚本     
 ===
 
 
@@ -399,7 +404,7 @@ https://github.com/mysql/mysql-docker
 
 <span id="发布LIMS" />  
 
-发布LIMS
+发布LIMS      
 ===
 当LIMS产品Docker容器化后，可以很方便的把LIMS产品发布到云端，部署时可以直接从云端下载。
 由于Docker公司在美国，所以我们一般从国内的云平台购买Docker服务。
@@ -428,6 +433,6 @@ https://github.com/mysql/mysql-docker
 
 
 
-文档结束
+文档结束  
 
 [Home](#beginning)
