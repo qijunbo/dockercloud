@@ -14,7 +14,7 @@
 
 </div>
 
-<span id="seg1" />
+<span id="seg1" >&nbsp;</span>
 
 &nbsp;  
 ===
@@ -61,7 +61,7 @@
 LIMS 产品的容器化 
 ====
 
-<span id="seg2" />
+<span id="seg2" >&nbsp;</span>
 
 需求说明
 --
@@ -83,7 +83,7 @@ LIMS 产品的容器化
 
 运维系统可以为每个客户生成对应的配置文件.
 
-<span id="seg3" />
+<span id="seg3" >&nbsp;</span>
 
 范围说明
 --
@@ -128,7 +128,7 @@ Shell脚本是应用服务器和Docker容器的纽带, 提供了产品创建和�
 
 
 
-<span id="seg4" />
+<span id="seg4" >&nbsp;</span>
 
 实施方案   
 --
@@ -139,7 +139,7 @@ Shell脚本是应用服务器和Docker容器的纽带, 提供了产品创建和�
 
 ![工作流图](progress.png)
 
-<span id="seg5" />
+<span id="seg5" >&nbsp;</span>
 
 ### 产品镜像的生成  ###
 
@@ -159,7 +159,7 @@ Shell脚本是应用服务器和Docker容器的纽带, 提供了产品创建和�
 
 ![持续集成](./realworld-pipeline-flow.png)
 
-<span id="seg6" />
+<span id="seg6" >&nbsp;</span>
 
 ### 产品自动发布  ###
 
@@ -167,7 +167,7 @@ Shell脚本是应用服务器和Docker容器的纽带, 提供了产品创建和�
 
 ![自动部署流程](./auto.png)
 
-<span id="seg7" />
+<span id="seg7" >&nbsp;</span>
 
 ### 客户自助采购系统  ###  
 
@@ -178,7 +178,7 @@ Demo环境展示提供一个简单的单页面系统, 作为展示.
 
 ![明细](./detail.png)
 
-<span id="seg8" />
+<span id="seg8" >&nbsp;</span>
 
 ### 运维配置系统  ###
 
@@ -198,12 +198,12 @@ Docker并不存在一套日志系统来记录它创建的容器是为谁创建�
  <tr><td>limssunway</td><td> sunway </td><td>/home/docker/mysql/sunway</td><td>32768 </td><td> 重启服务/修复配置 </td> </tr>
 </table>
 
-<span id="seg9" />
+<span id="seg9" >&nbsp;</span>
 
 安全    
 --
 
-<span id="seg10" />
+<span id="seg10" >&nbsp;</span>
 
 ### Docer用户创建 ###
 
@@ -213,7 +213,7 @@ Docker并不存在一套日志系统来记录它创建的容器是为谁创建�
 useradd docker -g docker 	
 ```
 
-<span id="seg11" />
+<span id="seg11" >&nbsp;</span>
 
 ### 加密方式 ###
 
@@ -221,14 +221,14 @@ useradd docker -g docker
  
  用运维配置系统将采用 "用户名+密码"认证方式, 密码用单向加密算法加密(暂定md5算法), 密码找回暂时定为采用邮件发生一次性有效的修改链接.
 
-<span id="seg12" />
+<span id="seg12" >&nbsp;</span>
 
 数据备份
 --
 
 数据备份的目的主要在于当系统因为人为(误删除, 黑客入侵)或者不可抗(断电,灾害)因素出现损坏时, 能够以最快的数据恢复服务, 将损失控制在可接受的范围之内.  因此, 为达到上述目的,  我们最常见的两种方式是[异地备份](#seg13)和[网盘备份](#seg14).
 
-<span id="seg13" />
+<span id="seg13" >&nbsp;</span>
 
 ### 异地备份  ###
 
@@ -236,7 +236,7 @@ useradd docker -g docker
 
  2. 自己购买备份服务器.  因为云主机比较贵, 如果考虑经济因素,  自己购买机器, 定期下载数据.  不过考虑到下载带宽的限制, 这种省钱的方式效果比较差.
 
-<span id="seg14" />
+<span id="seg14" >&nbsp;</span>
 
 ### 网盘备份  ###
 
@@ -244,7 +244,7 @@ useradd docker -g docker
 
 从云提供商(如阿里云) 购买磁盘空间,  并且用Linux Mount命令挂载在主机上,  这个用起来和本地文件夹一样, 但是物理空间上, 它在另一个机器上, 备份非常方便.   但是缺点是, NAS网盘一般都在同一个数据中心,  一旦数据中心停电, 肯定都停电了. 但是价格便宜.
 
-<span id="seg15" />
+<span id="seg15" >&nbsp;</span>
 
 风险 
 ---
@@ -271,12 +271,12 @@ useradd docker -g docker
 <center> 操作手册 </center> 
 === 
 
-<span id="seg16" />
+<span id="seg16" >&nbsp;</span>
 
 Docker环境搭建     
 ---
 
-<span id="seg17" />
+<span id="seg17" >&nbsp;</span>
 
 ### 安装Docker ###
 
@@ -297,19 +297,19 @@ systemctl start docker
 docker version
 ```
 
-<span id="seg18" />
+<span id="seg18" >&nbsp;</span>
 
 ### 创建用户 ###
 
 为了安全起见, docker 会使用单独的用户和组. 参考: [Docer用户创建](#seg18)
 
  
-<span id="seg19" />
+<span id="seg19" >&nbsp;</span>
 
 LIMS产品容器化手册     
 ---
 
-<span id="seg20" />
+<span id="seg20" >&nbsp;</span>
 
 ### 文件清单: ### 
 
@@ -321,7 +321,7 @@ LIMS产品容器化手册
 <tr><td>lims/server.xml</td><td>lims 默认配置文件, 其中的数据库jndi需要酌情修改.</td><td></td></tr>
 </table>
 
-<span id="seg21" />
+<span id="seg21" >&nbsp;</span>
 
 ### 操作提示: ###
  
@@ -341,12 +341,12 @@ mkdir -p  /home/docker/lims
 - 执行restart.sh  启动Lims 演示环境.
 
 
-<span id="seg22" />
+<span id="seg22" >&nbsp;</span>
 
 MySQL容器初始化     
 ---
 
-<span id="seg23" />
+<span id="seg23" >&nbsp;</span>
 
 ### 文件清单: ### 
  
@@ -358,7 +358,7 @@ MySQL容器初始化
 </table>
 
 
-<span id="seg24" />
+<span id="seg24" >&nbsp;</span>
 
 ### 操作提示: ###
  
@@ -402,12 +402,12 @@ https://github.com/docker-library/mysql/blob/7a850980c4b0d5fb5553986d280ebfb4323
 https://github.com/mysql/mysql-docker
 
 
-<span id="seg25" />
+<span id="seg25" >&nbsp;</span>
 
 自动化部署Shell脚本     
 ----
 
-<span id="seg26" />
+<span id="seg26" >&nbsp;</span>
 
 ### 文件清单: ### 
 
@@ -419,20 +419,20 @@ https://github.com/mysql/mysql-docker
 <tr><td>auto/startmysql.sh</td><td>测试脚本,启动demo环境数据库</td><td> </td></tr>
 </table>
 
-<span id="seg27" />
+<span id="seg27" >&nbsp;</span>
 
 ### 操作提示: ###
 
 这些脚本都是给前端Webapp调用的, 原则上不提倡手动执行这些脚本. 避免前端系统的记录和后端的行为不一致.
 
-<span id="seg28" />
+<span id="seg28" >&nbsp;</span>
 
 发布LIMS      
 ---
 当LIMS产品Docker容器化后，可以很方便的把LIMS产品发布到云端，部署时可以直接从云端下载。
 由于Docker公司在美国，所以我们一般从国内的云平台购买Docker服务。
 
-<span id="seg29" />
+<span id="seg29" >&nbsp;</span>
 
 - 上传LIMS镜像
 
@@ -441,7 +441,7 @@ https://github.com/mysql/mysql-docker
 	docker push <registry-host>:5000/sunway/lims:1
 ```	
 
-<span id="seg30" />
+<span id="seg30" >&nbsp;</span>
 
 - 下载LIMS镜像
 
