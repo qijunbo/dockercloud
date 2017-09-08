@@ -14,54 +14,54 @@
 
 </div>
 
-<span id="beginning" />
+<span id="seg1" />
 
 &nbsp;  
 ===
 
 目录:
 ----
-- [需求说明](#需求说明)
-- [范围说明](#范围说明)
-- [实施方案](#实施方案)
- * [产品镜像的生成 ](#产品镜像的生成 )
- * [产品自动发布 ](#产品自动发布 )
- * [客户自助采购系统 ](#客户自助采购系统 )
- * [运维配置系统 ](#运维配置系统 )
-- [安全](#安全)
- * [Docer用户创建](#Docer用户创建)
- * [加密方式](#加密方式)
-- [数据备份](#数据备份)
- * [异地备份](#异地备份)
- * [网盘备份](#网盘备份)
-- [风险](#风险)
+- [需求说明](#seg2)
+- [范围说明](#seg3)
+- [实施方案](#seg4)
+ * [产品镜像的生成 ](#seg5)
+ * [产品自动发布 ](#seg6)
+ * [客户自助采购系统 ](#seg7)
+ * [运维配置系统 ](#seg8)
+- [安全](#seg9)
+ * [Docer用户创建](#seg10)
+ * [加密方式](#seg11)
+- [数据备份](#seg12)
+ * [异地备份](#seg13)
+ * [网盘备份](#seg14)
+- [风险](#seg15)
 
 ** 操作手册 **
 
-- [Docker环境搭建](#Docker环境搭建)
- * [安装Docker](#安装Docker)
- * [创建用户](#创建用户)
+- [Docker环境搭建](#seg16)
+ * [安装Docker](#seg17)
+ * [创建用户](#seg18)
 
-- [LIMS产品容器化手册](#LIMS产品容器化手册)
- * [文件清单](#文件清单lims)
- * [操作提示](#操作提示lims)
+- [LIMS产品容器化手册](#seg19)
+ * [文件清单](#seg20)
+ * [操作提示](#seg21)
 
-- [MySQL容器初始化](#MySQL容器初始化)
- * [文件清单mysql](#文件清单mysql)
- * [操作提示mysql](#操作提示mysql)
+- [MySQL容器初始化](#seg22)
+ * [文件清单mysql](#seg23)
+ * [操作提示mysql](#seg24)
 
-- [自动化部署Shell脚本](#自动化部署Shell脚本)
- * [文件清单](#文件清单auto)
- * [操作提示](#操作提示auto)
+- [自动化部署Shell脚本](#seg25)
+ * [文件清单](#seg26)
+ * [操作提示](#seg27)
 
-- [发布LIMS](#发布LIMS)
- * [上传LIMS镜像](#上传LIMS镜像)
- * [下载LIMS镜像](#下载LIMS镜像)
+- [发布LIMS](#seg28)
+ * [上传LIMS镜像](#seg29)
+ * [下载LIMS镜像](#seg30)
 
 LIMS 产品的容器化 
 ====
 
-<span id="需求说明" />
+<span id="seg2" />
 
 需求说明
 --
@@ -83,7 +83,7 @@ LIMS 产品的容器化
 
 运维系统可以为每个客户生成对应的配置文件.
 
-<span id="范围说明" />
+<span id="seg3" />
 
 范围说明
 --
@@ -128,7 +128,7 @@ Shell脚本是应用服务器和Docker容器的纽带, 提供了产品创建和�
 
 
 
-<span id="实施方案" />
+<span id="seg4" />
 
 实施方案   
 --
@@ -139,35 +139,35 @@ Shell脚本是应用服务器和Docker容器的纽带, 提供了产品创建和�
 
 ![工作流图](progress.png)
 
-<span id="产品镜像的生成" />
+<span id="seg5" />
 
 ### 产品镜像的生成  ###
 
 每个客户对应2个镜像,  一个是LIMS产品镜像, 一个是数据库镜像. 
 
-* 首先安装好Docker环境. [安装指南](#Docker环境搭建)
+* 首先安装好Docker环境. [安装指南](#seg16)
 
-* LIMS 镜像的生成  具体过程参考: [LIMS产品容器化手册](#LIMS产品容器化手册)
+* LIMS 镜像的生成  具体过程参考: [LIMS产品容器化手册](#seg19)
 
 - 执行rebuild.sh  创建镜像.
 
 - 执行restart.sh  启动Lims 演示环境.
 
-* 数据库镜像的生成. 具体过程参考: [MySQL容器初始化](#MySQL容器初始化)
+* 数据库镜像的生成. 具体过程参考: [MySQL容器初始化](#seg22)
 
 目前主流的持续集成/持续发布系统应该是下面这样的, 这对开发人员技能要求较高, 这是未来我们努力的方向.(按Ctrl + 鼠标滚轮可放大)
 
 ![持续集成](./realworld-pipeline-flow.png)
 
-<span id="产品自动发布" />
+<span id="seg6" />
 
 ### 产品自动发布  ###
 
-前端系统发起调用,并传入用户id时,  后台shell脚本会自动完成如下工作. (参考 [自动化部署Shell脚本](#自动化部署Shell脚本))
+前端系统发起调用,并传入用户id时,  后台shell脚本会自动完成如下工作. (参考 [自动化部署Shell脚本](#seg25)
 
 ![自动部署流程](./auto.png)
 
-<span id="客户自助采购系统" />
+<span id="seg7" />
 
 ### 客户自助采购系统  ###  
 
@@ -178,7 +178,7 @@ Demo环境展示提供一个简单的单页面系统, 作为展示.
 
 ![明细](./detail.png)
 
-<span id="运维配置系统" />
+<span id="seg8" />
 
 ### 运维配置系统  ###
 
@@ -198,12 +198,12 @@ Docker并不存在一套日志系统来记录它创建的容器是为谁创建�
  <tr><td>limssunway</td><td> sunway </td><td>/home/docker/mysql/sunway</td><td>32768 </td><td> 重启服务/修复配置 </td> </tr>
 </table>
 
-<span id="安全" />
+<span id="seg9" />
 
 安全    
 --
 
-<span id="Docer用户创建" />
+<span id="seg10" />
 
 ### Docer用户创建 ###
 
@@ -213,7 +213,7 @@ Docker并不存在一套日志系统来记录它创建的容器是为谁创建�
 useradd docker -g docker 	
 ```
 
-<span id="加密方式" />
+<span id="seg11" />
 
 ### 加密方式 ###
 
@@ -221,14 +221,14 @@ useradd docker -g docker
  
  用运维配置系统将采用 "用户名+密码"认证方式, 密码用单向加密算法加密(暂定md5算法), 密码找回暂时定为采用邮件发生一次性有效的修改链接.
 
-<span id="数据备份" />
+<span id="seg12" />
 
 数据备份
 --
 
-数据备份的目的主要在于当系统因为人为(误删除, 黑客入侵)或者不可抗(断电,灾害)因素出现损坏时, 能够以最快的数据恢复服务, 将损失控制在可接受的范围之内.  因此, 为达到上述目的,  我们最常见的两种方式是[异地备份](#异地备份)和[网盘备份](#网盘备份).
+数据备份的目的主要在于当系统因为人为(误删除, 黑客入侵)或者不可抗(断电,灾害)因素出现损坏时, 能够以最快的数据恢复服务, 将损失控制在可接受的范围之内.  因此, 为达到上述目的,  我们最常见的两种方式是[异地备份](#seg13)和[网盘备份](#seg14).
 
-<span id="异地备份" />
+<span id="seg13" />
 
 ### 异地备份  ###
 
@@ -236,7 +236,7 @@ useradd docker -g docker
 
  2. 自己购买备份服务器.  因为云主机比较贵, 如果考虑经济因素,  自己购买机器, 定期下载数据.  不过考虑到下载带宽的限制, 这种省钱的方式效果比较差.
 
-<span id="网盘备份" />
+<span id="seg14" />
 
 ### 网盘备份  ###
 
@@ -244,7 +244,7 @@ useradd docker -g docker
 
 从云提供商(如阿里云) 购买磁盘空间,  并且用Linux Mount命令挂载在主机上,  这个用起来和本地文件夹一样, 但是物理空间上, 它在另一个机器上, 备份非常方便.   但是缺点是, NAS网盘一般都在同一个数据中心,  一旦数据中心停电, 肯定都停电了. 但是价格便宜.
 
-<span id="风险" />
+<span id="seg15" />
 
 风险 
 ---
@@ -271,12 +271,12 @@ useradd docker -g docker
 <center> 操作手册 </center> 
 === 
 
-<span id="Docker环境搭建" />
+<span id="seg16" />
 
 Docker环境搭建     
 ---
 
-<span id="安装Docker" />
+<span id="seg17" />
 
 ### 安装Docker ###
 
@@ -297,19 +297,19 @@ systemctl start docker
 docker version
 ```
 
-<span id="创建用户" />
+<span id="seg18" />
 
 ### 创建用户 ###
 
-为了安全起见, docker 会使用单独的用户和组. 参考: [Docer用户创建](#Docer用户创建)
+为了安全起见, docker 会使用单独的用户和组. 参考: [Docer用户创建](#seg18)
 
  
-<span id="LIMS产品容器化手册" />
+<span id="seg19" />
 
 LIMS产品容器化手册     
 ---
 
-<span id="文件清单lims" />
+<span id="seg20" />
 
 ### 文件清单: ### 
 
@@ -321,7 +321,7 @@ LIMS产品容器化手册
 <tr><td>lims/server.xml</td><td>lims 默认配置文件, 其中的数据库jndi需要酌情修改.</td><td></td></tr>
 </table>
 
-<span id="操作提示lims" />
+<span id="seg21" />
 
 ### 操作提示: ###
  
@@ -341,12 +341,12 @@ mkdir -p  /home/docker/lims
 - 执行restart.sh  启动Lims 演示环境.
 
 
-<span id="MySQL容器初始化" />
+<span id="seg22" />
 
 MySQL容器初始化     
 ---
 
-<span id="文件清单mysql" />
+<span id="seg23" />
 
 ### 文件清单: ### 
  
@@ -358,7 +358,7 @@ MySQL容器初始化
 </table>
 
 
-<span id="操作提示mysql" />
+<span id="seg24" />
 
 ### 操作提示: ###
  
@@ -402,12 +402,12 @@ https://github.com/docker-library/mysql/blob/7a850980c4b0d5fb5553986d280ebfb4323
 https://github.com/mysql/mysql-docker
 
 
-<span id="自动化部署Shell脚本" />
+<span id="seg25" />
 
 自动化部署Shell脚本     
 ----
 
-<span id="文件清单auto" />
+<span id="seg26" />
 
 ### 文件清单: ### 
 
@@ -419,20 +419,20 @@ https://github.com/mysql/mysql-docker
 <tr><td>auto/startmysql.sh</td><td>测试脚本,启动demo环境数据库</td><td> </td></tr>
 </table>
 
-<span id="操作提示auto" />
+<span id="seg27" />
 
 ### 操作提示: ###
 
 这些脚本都是给前端Webapp调用的, 原则上不提倡手动执行这些脚本. 避免前端系统的记录和后端的行为不一致.
 
-<span id="发布LIMS" />
+<span id="seg28" />
 
 发布LIMS      
 ---
 当LIMS产品Docker容器化后，可以很方便的把LIMS产品发布到云端，部署时可以直接从云端下载。
 由于Docker公司在美国，所以我们一般从国内的云平台购买Docker服务。
 
-<span id="上传LIMS镜像" />
+<span id="seg29" />
 
 - 上传LIMS镜像
 
@@ -441,7 +441,7 @@ https://github.com/mysql/mysql-docker
 	docker push <registry-host>:5000/sunway/lims:1
 ```	
 
-<span id="下载LIMS镜像" />
+<span id="seg30" />
 
 - 下载LIMS镜像
 
@@ -457,4 +457,4 @@ https://github.com/mysql/mysql-docker
 
 文档结束  
 
-[Home](#beginning)
+[Home](#seg1)
