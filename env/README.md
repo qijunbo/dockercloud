@@ -71,5 +71,11 @@ firewall-cmd --zone=public --list-ports
 
 ```
 
+Host 配置
+--
+```
+echo `ip addr show eth0 | grep inet | awk '{ print $2; }' | sed 's/\/.*$//'` mysqlserver >>/etc/hosts
+```
+
 
 

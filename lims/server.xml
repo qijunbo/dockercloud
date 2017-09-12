@@ -163,10 +163,15 @@
 		
 		<Context crossContext="true" docBase="/usr/local/iframework"
 					path="/iframework">
-					<Resource driverClassName="oracle.jdbc.driver.OracleDriver"
-						maxActive="20" maxIdle="30" maxWait="10000" name="framework"
-						password="iframework" type="javax.sql.DataSource"
-						url="jdbc:oracle:thin:@mdm.sunwayworld.com:1523:utf8" username="iframework" />
+					<Resource name="framework"
+							  type="javax.sql.DataSource"
+							  username="root"
+							  password="sunway123#"
+							  driverClassName="com.mysql.jdbc.Driver"
+							  url="jdbc:mysql://mysqlserver:3306/dbs_dev"
+							  maxActive="20"
+							  maxIdle="30"
+							  maxWait="10000"/>
 		</Context>	   
       </Host>
     </Engine>

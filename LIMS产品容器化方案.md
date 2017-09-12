@@ -90,7 +90,7 @@ LIMS 产品的容器化
 
 下图是本系统的逻辑架构图, 蓝色虚线框部分表示本系统的边界.
 
-![逻辑架构图](imagelogic.png)
+![逻辑架构图](image/logic.png)
 
 ** 如下是架构图说明 ** 
 
@@ -137,7 +137,7 @@ Shell脚本是应用服务器和Docker容器的纽带, 提供了产品创建和�
 
 (虽然数据库初始化脚本有时候也被视为源码的一部分, 但是它并不是创建LIMS镜像的必要条件, 两者是可以完全解耦的.)
 
-![工作流图](imageprogress.png)
+![工作流图](image/progress.png)
 
 <a id="seg5" />
 
@@ -281,7 +281,7 @@ Docker环境搭建
 ### 安装Docker ###
 
 下面是Docker在CentOS Linux 下面的安装步骤， 如果你用的是其它操作系统可以点击如下链接查看官方网站对其他操作系统安装步骤的说明：
-https://docs.docker.com/engine/installation/linux/docker-ce/centos/#install-using-the-repository 
+[https://docs.docker.com/engine/installation/linux/docker-ce/centos/#install-using-the-repository](https://docs.docker.com/engine/installation/linux/docker-ce/centos/#install-using-the-repository) 
 
 ```
 yum install -y yum-utils device-mapper-persistent-data lvm2
@@ -291,6 +291,22 @@ yum install -y docker-ce
 systemctl start docker
 
 ```
+
+如果要安装指定的版本的docker
+You can find it here. [stable version](https://download.docker.com/linux/centos/7/x86_64/stable/Packages/)
+```
+ yum list docker-ce.x86_64  --showduplicates | sort -r
+ yum install   docker-ce-17.06.0.ce-1.el7.centos.x86_64
+```
+
+卸载docker
+```
+systemctl stop docker
+yum remove docker-ce
+rm -rf /var/lib/docker
+```
+
+
 安装之后可以用下面的指令简单验证一下是否安装成功。
 
 ```
