@@ -132,13 +132,13 @@ restart.sh
 特别说明:
 --
 	开发版容器使用步骤如下:
-	1. 把LIMS复制到：/root/docker/mylims/iframework
+	1. 把LIMS复制到：/home/docker/mylims/iframework
 	2. 启动定制化的tomcat容器。
 		docker container run --name mylims -d -P \
-		-v /root/docker/mylims/logs:/usr/local/tomcat/logs \
-		-v /root/docker/mylims/iframework:/usr/local/iframework sunway/mylims 	
+		-v /home/docker/mylims/logs:/usr/local/tomcat/logs \
+		-v /home/docker/mylims/iframework:/usr/local/iframework sunway/mylims 	
 	3. 到这个目录查看日志： 
-		/root/docker/mylims/logs
+		/home/docker/mylims/logs
 	4. 查看运行在哪个端口：  
 		docker port mylims
 	
@@ -158,9 +158,10 @@ Build Customized Tomcat Docker Image
 	
 Start customized Tomcat container.
 ----
+	mkdir -p  /home/docker/mylims/logs
 	docker container run --name mylims -d -P \
-	-v /root/docker/mylims/logs:/usr/local/tomcat/logs \
-	-v /root/docker/mylims/iframework:/usr/local/iframework sunway/mylims 
+	-v /home/docker/mylims/logs:/usr/local/tomcat/logs \
+	-v /home/docker/mylims/iframework:/usr/local/iframework sunway/mylims 
 	
 	docker exec -it mylims bash
 	http://192.168.1.30:<port>/iframework
@@ -180,7 +181,7 @@ restart.sh
 	docker container rm mylims
 	docker container prune -f
 	docker container run --name mylims -d -P \
-			-v /root/docker/mylims/logs:/usr/local/tomcat/logs \
-			-v /root/docker/mylims/iframework:/usr/local/iframework sunway/mylims
+			-v /home/docker/mylims/logs:/usr/local/tomcat/logs \
+			-v /home/docker/mylims/iframework:/usr/local/iframework sunway/mylims
 	docker port mylims
 
