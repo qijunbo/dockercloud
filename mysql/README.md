@@ -47,6 +47,25 @@ mysql -u root -p
 mysqladmin -u root -p variables  | grep  "case"
 ```
 
+数据库初始化指南 
+--
+- 把数据库初始化脚本复制到指定目录 /home/docker/mysql/user1/initsql   
+- /home/docker/mysql/user1/initsql  和容器内部的 /docker-entrypoint-initdb.d 是同一个目录.
+- 进入容器内部:
+```
+docker container exec -it mysql bash 
+```
+- 切换到目录 /docker-entrypoint-initdb.d  你就找到了刚才copy的数据库初始脚本.
+- 运行mysql
+```
+mysql -u root -p 
+密码： sunway123#
+```
+- 导入数据库脚本
+```
+source xxxxx.sql <数据库初始化脚本> 
+```
+
 
 Reference
 ---
