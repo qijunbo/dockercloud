@@ -1,5 +1,7 @@
 
-LIMS产品容器化手册
+本方案失败, 请参考 env 目录下的方案.
+
+[env](../env/README.md)
 =====
 
 文件清单:
@@ -34,21 +36,4 @@ docker container run --name mytomcat -d \
 
 ```
 
-- 重启tomcat容器.
-
-有个比较坑爹的特性,  nginx启动, 并且监听了tomcat容器的情况下,  tomcat容器会 restart (重启)失败. 所以在restart 之前, 一定要临时关闭 nginx
-
-```
-/bin/systemctl stop  nginx.service
-docker container stop mytomcat
-docker container rm mytomcat
-docker container prune -f
-rm -f  /home/docker/cloud/logs/*
-docker container run --name mytomcat -d \
-  -v /home/docker/cloud/logs:/usr/local/tomcat/logs \
-  -v /home/docker/cloud/webapps:/usr/local/tomcat/webapps -p 8080:8080 sunway/mytomcat:1 
-
-/bin/systemctl start nginx.service
-
-```
 
