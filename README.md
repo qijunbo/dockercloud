@@ -1,6 +1,26 @@
 部署指南
 ===
 
+文件清单
+--
+
+<table width="100%">
+<tr><th>File Name</th><th>Description</th><th>备注</th> </tr>
+<tr><td>cloud</td><td>已废弃</td><td>[ReadMe](cloud/README.md)</td></tr>
+<tr><td>conf</td><td>已废弃</td><td>[ReadMe](conf/README.md)</td></tr>
+<tr><td>docker</td><td>自动部署脚本</td><td>[ReadMe](docker/README.md)</td></tr>
+<tr><td>env</td><td>Lims Cloud 部署脚本</td><td>[ReadMe](env/README.md)</td></tr>
+<tr><td>image</td><td>图片资源.</td><td></td></tr>
+<tr><td>lims</td><td>Lims产品创建脚本.</td><td>[ReadMe](lims/README.md)</td></tr>
+<tr><td>LIMS产品容器化方案.md</td><td>&nbsp;</td><td>[查看](LIMS产品容器化方案.md)</td></tr>
+<tr><td>LIMS产品容器化方案.pdf</td><td>&nbsp;</td><td></td></tr>
+<tr><td>mylims</td><td>开发环境容器创建脚本, 已废弃.</td><td>[ReadMe](mylims/README.md)</td></tr>
+<tr><td>mysql</td><td>Mysql 初始化指南, 已废弃</td><td>[ReadMe](mysql/README.md)</td></tr>
+<tr><td>三维天地云平台系统.png</td><td>&nbsp;</td><td></td></tr>
+<tr><td>部署指南.pdf</td><td>&nbsp;</td><td></td></tr>
+</table>
+
+
 
 MySQL Docker 容器初始化
 ==
