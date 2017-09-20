@@ -1,2 +1,2 @@
 /bin/systemctl reload nginx
-logger "nginx reloaded at `dte`" 
+logger "nginx reloaded at `date`" 
