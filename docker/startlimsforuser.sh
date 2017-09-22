@@ -6,7 +6,7 @@ if [ -z "${name}" ]; then
      exit -1 ;
 fi
 
-docker rm -f lims${name}
+#docker rm -f lims${name}
 mkdir -p  /home/docker/mysql/${name}/logs
 docker run --name lims${name} -d \
     -v /home/docker/mysql/${name}/logs:/usr/local/tomcat/logs \
