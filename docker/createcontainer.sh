@@ -8,10 +8,11 @@ if [ -z "${name}" ]; then
 fi
 
 mkdir -p  /home/docker/mysql/${name}/data
-mkdir -p  /home/docker/mysql/${name}/conf
+#mkdir -p  /home/docker/mysql/${name}/conf
 mkdir -p  /home/docker/mysql/${name}/initsql
+mkdir -p  /home/docker/mysql/${name}/logs
 
-cp -n /home/docker/docker/conf/*  /home/docker/mysql/${name}/conf
+#cp -n /home/docker/docker/conf/*  /home/docker/mysql/${name}/conf
 cp -n /home/docker/docker/initsql/*.sql  /home/docker/mysql/${name}/initsql
 cp -rf /home/docker/docker/tomcat  /home/docker/mysql/${name}/
 logger "Work folder created for ${name} at:/home/docker/mysql/${name}"
