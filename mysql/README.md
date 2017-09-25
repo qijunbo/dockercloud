@@ -76,3 +76,33 @@ https://github.com/docker-library/mysql/blob/7a850980c4b0d5fb5553986d280ebfb4323
 
 https://github.com/mysql/mysql-docker
 
+- Guide:  [https://hub.docker.com/_/mysql/](https://hub.docker.com/_/mysql/)
+
+Status
+--
+
+```
+mysql> status
+--------------
+mysql  Ver 14.14 Distrib 5.7.19, for Linux (x86_64) using  EditLine wrapper
+
+Connection id:          3
+Current database:
+Current user:           root@localhost
+SSL:                    Not in use
+Current pager:          stdout
+Using outfile:          ''
+Using delimiter:        ;
+Server version:         5.7.19 MySQL Community Server (GPL)
+Protocol version:       10
+Connection:             Localhost via UNIX socket
+Server characterset:    latin1
+Db     characterset:    latin1
+Client characterset:    latin1
+Conn.  characterset:    latin1
+UNIX socket:            /var/run/mysqld/mysqld.sock
+Uptime:                 16 min 6 sec
+
+Threads: 1  Questions: 6  Slow queries: 0  Opens: 105  Flush tables: 1  Open tables: 98  Queries per second avg: 0.006
+```
+
