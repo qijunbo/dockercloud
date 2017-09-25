@@ -161,18 +161,6 @@
                prefix="localhost_access_log" suffix=".txt"
                pattern="%h %l %u %t &quot;%r&quot; %s %b" />
 		
-		<Context crossContext="true" docBase="/usr/local/iframework"
-					path="/iframework">
-					<Resource name="framework"
-							  type="javax.sql.DataSource"
-							  username="root"
-							  password="sunway123#"
-							  driverClassName="com.mysql.jdbc.Driver"
-							  url="jdbc:mysql://mysqlserver:3306/dbs_dev"
-							  maxActive="20"
-							  maxIdle="30"
-							  maxWait="10000"/>
-		</Context>	   
       </Host>
     </Engine>
   </Service>

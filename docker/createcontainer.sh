@@ -3,7 +3,8 @@ name=$1
 version=1
 
 if [ -z "${name}" ]; then 
-   exit -1 ;
+     echo Usage: $0 username
+     exit -1 ;
 fi
 
 mkdir -p  /home/docker/mysql/${name}/data

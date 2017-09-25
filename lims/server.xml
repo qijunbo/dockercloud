@@ -161,18 +161,18 @@
                prefix="localhost_access_log" suffix=".txt"
                pattern="%h %l %u %t &quot;%r&quot; %s %b" />
 		
-		<Context crossContext="true" docBase="/usr/local/iframework"
-					path="/iframework">
-					<Resource name="framework"
-							  type="javax.sql.DataSource"
-							  username="root"
-							  password="sunway123#"
-							  driverClassName="com.mysql.jdbc.Driver"
-							  url="jdbc:mysql://mysqlserver:3306/dbs_dev"
-							  maxActive="20"
-							  maxIdle="30"
-							  maxWait="10000"/>
-		</Context>	   
+            <Context path="/lims" docBase="/sunway/product/lims/webapp" crossContext="true">
+            <Resource name="framework"
+                      type="javax.sql.DataSource"
+                      username="root"
+                      password="sunway123#"
+                      driverClassName="com.mysql.jdbc.Driver"
+                      url="jdbc:mysql://172.31.209.221:32817/dbs_dev"
+                      maxTotal="20"
+                      maxIdle="30"
+                      maxWaitMillis="600000"/>
+        </Context>
+		  
       </Host>
     </Engine>
   </Service>
