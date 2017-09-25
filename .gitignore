@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /bin/
 /bin/
 /bin/
@@ -102,3 +103,8 @@ lims.zip
 *.sql
 *.jar
 log/
+.project
+log/
+*.sql
+*.pdf
+*.zip
