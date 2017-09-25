@@ -20,7 +20,6 @@ docker rm -f  mysql${name}
 docker run --name mysql${name} -e MYSQL_ROOT_PASSWORD=sunway123# -d -P \
     -v /home/docker/mysql/${name}/data:/var/lib/mysql  \
     -v /home/docker/mysql/${name}/initsql:/docker-entrypoint-initdb.d \
-    -v /home/docker/mysql/${name}/conf:/etc/mysql/conf.d \
          qijunbo/mysql --character-set-server=utf8 --collation-server=utf8_general_ci 
 logger "Mysql container(mysql${name}) started at: `date`"
 
