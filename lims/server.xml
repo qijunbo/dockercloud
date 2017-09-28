@@ -160,18 +160,28 @@
         <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs"
                prefix="localhost_access_log" suffix=".txt"
                pattern="%h %l %u %t &quot;%r&quot; %s %b" />
-		
-            <Context path="/lims" docBase="/sunway/product/lims/webapp" crossContext="true">
-            <Resource name="framework"
+	   <Context path="/activiti-explorer" docBase="/sunway/product/activiti/webapp"  crossContext="true">
+                <Resource name="jdbc/framework"  auth="Container"
+                                                        type="javax.sql.DataSource"
+                                                        username="root" password="sunway123#"
+                                                        driverClassName="com.mysql.jdbc.Driver"
+                                                        url="jdbc:mysql://172.17.0.2:3306/dbs_dev?useSSL=false"
+                                                        maxTotal="200" maxIdle="30"
+                                                        testWhileIdle="true" maxWaitMillis="600000"/>
+           </Context>
+	
+           
+           <Context path="/qijunbo1" docBase="/sunway/product/lims-all/webapp" crossContext="true">
+            	<Resource name="framework"
                       type="javax.sql.DataSource"
                       username="root"
                       password="sunway123#"
                       driverClassName="com.mysql.jdbc.Driver"
-                      url="jdbc:mysql://172.31.209.221:32817/dbs_dev"
+                      url="jdbc:mysql://172.17.0.2:3306/dbs_dev?useSSL=false"
                       maxTotal="20"
                       maxIdle="30"
                       maxWaitMillis="600000"/>
-        </Context>
+           </Context>
 		  
       </Host>
     </Engine>

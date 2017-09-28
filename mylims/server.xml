@@ -161,7 +161,8 @@
                prefix="localhost_access_log" suffix=".txt"
                pattern="%h %l %u %t &quot;%r&quot; %s %b" />
 		
-		<Context crossContext="true" docBase="/usr/local/iframework" path="/iframework">
+		<Context crossContext="true" docBase="/usr/local/iframework"
+					path="/iframework">
 					<Resource name="framework"
 							  type="javax.sql.DataSource"
 							  username="root"

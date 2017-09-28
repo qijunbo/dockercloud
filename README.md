@@ -205,3 +205,20 @@ restart.sh
 			-v /home/docker/mylims/iframework:/usr/local/iframework sunway/mylims
 	docker port mylims
 
+drop database
+--
+```
+docker exec -it mysql mysql -uroot -psunway123#
+
+drop database lims_cloud ;
+CREATE DATABASE IF NOT EXISTS lims_cloud DEFAULT CHARSET utf8 COLLATE utf8_general_ci;
+
+
+/home/docker/env/deploycloud.war.sh
+
+
+docker restart limsqijunbo1  && docker accach  limsqijunbo1
+
+docker exec -it  limsqijunbo1 bash
+
+```
