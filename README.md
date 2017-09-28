@@ -217,8 +217,20 @@ CREATE DATABASE IF NOT EXISTS lims_cloud DEFAULT CHARSET utf8 COLLATE utf8_gener
 /home/docker/env/deploycloud.war.sh
 
 
-docker restart limsqijunbo1  && docker accach  limsqijunbo1
+docker restart limsqijunbo1  && docker attach  limsqijunbo1
 
 docker exec -it  limsqijunbo1 bash
 
 ```
+
+
+Host is not allowed to connect to this MySQL server
+--
+Refer to this [link](https://stackoverflow.com/questions/19101243/error-1130-hy000-host-is-not-allowed-to-connect-to-this-mysql-server)
+You can check this with: 
+
+```
+SELECT host FROM mysql.user WHERE User = 'root'; 
+```
+
+If you only see results with localhost and 127.0.0.1, you cannot connect from an external source. If you see other IP addresses, but not the one you're connecting from - that's also an indication.
