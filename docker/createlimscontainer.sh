@@ -24,15 +24,16 @@ echo "You are deploy lims${version}."
 #cp -rf /home/docker/docker/tomcat  /home/docker/mysql/${name}/
 #logger "Work folder created for ${name} at:/home/docker/mysql/${name}"
 
-echo "docker run --name lims${name} -d \
+echo "docker run --name lims${name} -d -P \
     --link mysql${name}:mysql${name} \
     -v /home/docker/mysql/${name}/logs:/usr/local/tomcat/logs \
-    -v /home/docker/mysql/${name}/tomcat/conf:/usr/local/tomcat/conf  -P  sunway/lims:${version}"
+    -v /home/docker/mysql/${name}/tomcat/conf:/usr/local/tomcat/conf   sunway/lims:${version}"
 
-docker run --name lims${name} -d \
+docker run --name lims${name} -d -P \
     --link mysql${name}:mysql \
     -v /home/docker/mysql/${name}/logs:/usr/local/tomcat/logs \
-     -P  sunway/lims:${version}
+    -v /home/docker/mysql/${name}/tomcat/conf:/usr/local/tomcat/conf \
+    sunway/lims:${version}
 
 logger "Lims container (lims${name}) started at `date`"
 

@@ -1,6 +1,8 @@
 #!/bin/sh
 name=$1
 version=$2
+echo "You must NOT run this command `date` " >>ERROR.log
+exit -1
 
 if [ -z "${name}" ]; then
      echo Usage: $0 username
