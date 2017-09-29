@@ -1,8 +1,8 @@
 #prepare for everyone 
-mkdir -p  /opt/docker/everyone/mysql/initsql
-mkdir -p  /opt/docker/everyone/mysql/conf/
+mkdir -p  /docker/everyone/initsql
+mkdir -p  /docker/everyone/conf
 
-cp *.sql /opt/docker/everyone/mysql/initsql/init.sql
-cp docker.cnf  /opt/docker/everyone/mysql/conf/docker.cnf
+cp -f init.sql /docker/everyone/initsql/
+cp -f docker.cnf /docker/everyone/conf/
 
-tree /opt/docker/everyone/
+tree /docker/everyone/

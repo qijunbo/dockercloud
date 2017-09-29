@@ -24,15 +24,24 @@ echo "You are deploy lims${version}."
 #cp -rf /home/docker/docker/tomcat  /home/docker/mysql/${name}/
 #logger "Work folder created for ${name} at:/home/docker/mysql/${name}"
 
-echo "docker run --name lims${name} -d -P \
-    --link mysql${name}:mysql${name} \
-    -v /home/docker/mysql/${name}/logs:/usr/local/tomcat/logs \
-    -v /home/docker/mysql/${name}/tomcat/conf:/usr/local/tomcat/conf   sunway/lims:${version}"
+echo "---------------------"
+pwd
 
+mkdir -p  /docker/${name}/logs
+cp -n server.xml /docker/${name}/
+
+echo "docker run --name lims${name} -d -P \
+    --link mysql${name}:mysql \
+    -v /docker/${name}/logs:/usr/local/tomcat/logs \
+    -v /docker/${name}/server.xml:/usr/local/tomcat/conf/server.xml \
+    sunway/lims:${version}"
+
+docker rm lims${name}
+docker container prune -f
 docker run --name lims${name} -d -P \
     --link mysql${name}:mysql \
-    -v /home/docker/mysql/${name}/logs:/usr/local/tomcat/logs \
-    -v /home/docker/mysql/${name}/tomcat/conf:/usr/local/tomcat/conf \
+    -v /docker/${name}/logs:/usr/local/tomcat/logs \
+    -v /docker/${name}/server.xml:/usr/local/tomcat/conf/server.xml \
     sunway/lims:${version}
 
 logger "Lims container (lims${name}) started at `date`"
