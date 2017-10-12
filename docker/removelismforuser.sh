@@ -8,6 +8,8 @@ fi
 /bin/systemctl stop nginx
 #docker stop  mysql${name} 
 docker stop  lims${name} 
-logger "Lims container (lims${name}) stop  at `date`"
+docker stop  mysql${name}
+docker container prune -f
+logger "All container for ${name} removed  at `date`"
 /bin/systemctl start nginx
 docker ps -a 

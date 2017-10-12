@@ -28,6 +28,7 @@ echo "---------------------"
 pwd
 
 mkdir -p  /docker/${name}/logs
+# default server.xml, you will see tomcat if the correct server.xml is not generated.
 cp -n server.xml /docker/${name}/
 
 echo "docker run --name lims${name} -d -P \
