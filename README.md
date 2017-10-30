@@ -20,6 +20,11 @@
 <tr><td>部署指南.pdf</td><td>&nbsp;</td><td></td></tr>
 </table>
 
+接口文档
+
+http://192.168.1.30:8001/ 
+
+填入:  http://118.190.153.23/limscloud/v2/api-docs
 
 
 MySQL Docker 容器初始化
