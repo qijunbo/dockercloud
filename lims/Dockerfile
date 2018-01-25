@@ -1,5 +1,5 @@
 #Create a LIMS image based on tomcat8
-FROM  tomcat:latest 
+FROM  tomcat:8.5.24-jre8-alpine 
 LABEL name="lims-all"
 COPY  product /sunway/product/ 
 COPY  server.xml /usr/local/tomcat/conf/
